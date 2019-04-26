@@ -69,7 +69,9 @@ public class RsaServiceImpl {
 
 	    System.out.println("response : "+responseDto.toString());
 	    
-	    Object json  = AesUtil.encryptAngular(gson.toJson(responseDto));
+	    String successMessage = "Form submitted successfully";
+	    
+	    Object json  = AesUtil.encryptAngular(successMessage);
 	    
 	    return  new GenericResponse(true, json);
 	}
