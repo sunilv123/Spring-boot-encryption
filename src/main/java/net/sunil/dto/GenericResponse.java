@@ -5,36 +5,36 @@ import lombok.Data;
 @Data
 public class GenericResponse {
 
-	private String status;
+	private Boolean status;
 	
 	private String errorMessage;
 	
 	private Object payLoad;
 	
-	public GenericResponse(String status, String errorMessage, Object payLoad) {
+	public GenericResponse(Boolean status, String errorMessage, Object payLoad) {
 	
 		this.status = status;
 		this.errorMessage = errorMessage;
 		this.payLoad = payLoad;
 	}
 	
-	public GenericResponse(String status, String errorMessage) {
+	public GenericResponse(Boolean status, String errorMessage) {
 		
 		this.status = status;
 		this.errorMessage = errorMessage;
 	}
 
-	public GenericResponse(String status, Object payLoad) {
+	public GenericResponse(Boolean status, Object payLoad) {
 		
 		this.status = status;
 		this.payLoad = payLoad;
 	}
 	
-	public String getStatus() {
+	public Boolean getStatus() {
 		return status;
 	}
 
-	public void setStatus(String status) {
+	public void setStatus(Boolean status) {
 		this.status = status;
 	}
 

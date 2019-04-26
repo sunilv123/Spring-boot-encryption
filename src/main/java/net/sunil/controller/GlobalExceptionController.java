@@ -48,7 +48,7 @@ public class GlobalExceptionController {
 		}
 	
 		logger.error("error in handleMethodArgumentNotValidException :: " + errorMsgs);
-		return new GenericResponse(AppConstants.GENERIC_RESPONSE_FAILURE, errorMsgs);
+		return new GenericResponse(true, errorMsgs);
 	}
 
 	
@@ -59,7 +59,7 @@ public class GlobalExceptionController {
 		final String errorMessage = e.getMessage();
 		logger.error("error in handleIllegalArgumentException :: " + errorMessage);
 		e.printStackTrace();
-		return new GenericResponse(AppConstants.GENERIC_RESPONSE_FAILURE, errorMessage);
+		return new GenericResponse(true, errorMessage);
 	}
 
 	/**
@@ -71,7 +71,7 @@ public class GlobalExceptionController {
 	public GenericResponse handleNoHandlerFoundException(final NoHandlerFoundException e) {
 		final String errorMessage = "The url you have requested (" + e.getRequestURL() + ") does not exist";
 		logger.error("error in handleNoHandlerFoundException :: " + errorMessage);
-		return new GenericResponse(AppConstants.GENERIC_RESPONSE_FAILURE, errorMessage);
+		return new GenericResponse(true, errorMessage);
 	}
 
 	/**
@@ -87,7 +87,7 @@ public class GlobalExceptionController {
 		// e.printStackTrace();
 		final String errorMessage = e.getMessage();
 		logger.error("error in handleMethodArgumentTypeMismatchException :: " + errorMessage);
-		return new GenericResponse(AppConstants.GENERIC_RESPONSE_FAILURE, errorMessage);
+		return new GenericResponse(true, errorMessage);
 	}
 
 	/**
@@ -102,7 +102,7 @@ public class GlobalExceptionController {
 		// e.printStackTrace();
 		final String errorMessage = e.getMessage();
 		logger.error("error in handleMissingServletRequestParameterException :: " + errorMessage);
-		return new GenericResponse(AppConstants.GENERIC_RESPONSE_FAILURE, errorMessage);
+		return new GenericResponse(true, errorMessage);
 	}
 
 	/**
@@ -115,7 +115,7 @@ public class GlobalExceptionController {
 		e.printStackTrace();
 		final String errorMessage = e.getMessage();
 		logger.error("error in handleHttpMediaTypeNotSupportedException :: " + errorMessage);
-		return new GenericResponse(AppConstants.GENERIC_RESPONSE_FAILURE, errorMessage);
+		return new GenericResponse(true, errorMessage);
 	}
 
 	/**
@@ -130,7 +130,7 @@ public class GlobalExceptionController {
 		// e.printStackTrace();
 		final String errorMessage = e.getMessage();
 		logger.error("error in handleServletRequestBindingException :: " + errorMessage);
-		return new GenericResponse(AppConstants.GENERIC_RESPONSE_FAILURE, errorMessage);
+		return new GenericResponse(true, errorMessage);
 	}
 
 	/**
@@ -144,7 +144,7 @@ public class GlobalExceptionController {
 		// e.printStackTrace();
 		final String errorMessage = e.getMessage();
 		logger.error("error in handleHttpRequestMethodNotSupportedException :: " + errorMessage);
-		return new GenericResponse(AppConstants.GENERIC_RESPONSE_FAILURE, errorMessage);
+		return new GenericResponse(true, errorMessage);
 	}
 
 	/**
@@ -157,7 +157,7 @@ public class GlobalExceptionController {
 		// e.printStackTrace();
 		final String errorMessage = e.getMessage();
 		logger.error("error in handleParseException :: " + errorMessage);
-		return new GenericResponse(AppConstants.GENERIC_RESPONSE_FAILURE, errorMessage);
+		return new GenericResponse(true, errorMessage);
 	}
 
 	/**
@@ -179,7 +179,7 @@ public class GlobalExceptionController {
 		} else {
 			logger.error("e.getCause().getClass() -:-" + e.getCause().getClass());
 			logger.error("error in handleHttpMessageNotReadableException :: " + errorMessage);
-			return new GenericResponse(AppConstants.GENERIC_RESPONSE_FAILURE, errorMessage);
+			return new GenericResponse(true, errorMessage);
 		}
 	}
 
@@ -218,12 +218,12 @@ public class GlobalExceptionController {
 				 * default error message given by spring
 				 */
 				logger.error("error in handleHttpMessageNotReadableException :: " + errorMessage);
-				return new GenericResponse(AppConstants.GENERIC_RESPONSE_FAILURE, errorMessage);
+				return new GenericResponse(true, errorMessage);
 			}
 			final String consolidatedErrorMessage = "Please check the provided field '" + fieldName + "' \n "
 					+ errorMessage;
 			logger.error("error in handleHttpMessageNotReadableException :: " + consolidatedErrorMessage);
-			return new GenericResponse(AppConstants.GENERIC_RESPONSE_FAILURE, consolidatedErrorMessage);
+			return new GenericResponse(true, consolidatedErrorMessage);
 
 		} catch (final Exception ex) {
 			/**
@@ -231,7 +231,7 @@ public class GlobalExceptionController {
 			 * default error message given by spring
 			 */
 			logger.error("error in handleHttpMessageNotReadableException :: " + errorMessage);
-			return new GenericResponse(AppConstants.GENERIC_RESPONSE_FAILURE, errorMessage);
+			return new GenericResponse(true, errorMessage);
 		}
 	}
 
@@ -244,7 +244,7 @@ public class GlobalExceptionController {
 	public GenericResponse handleNullPointerException(final NullPointerException e) {
 		logger.error("error in handleNullPointerException");
 		e.printStackTrace();
-		return new GenericResponse(AppConstants.GENERIC_RESPONSE_FAILURE,
+		return new GenericResponse(true,
 				"Oops! Something went wrong, please try again");
 	}
 
@@ -257,7 +257,7 @@ public class GlobalExceptionController {
 	public GenericResponse handleException(final Exception e) {
 		logger.error("error in handleException");
 		e.printStackTrace();
-		return new GenericResponse(AppConstants.GENERIC_RESPONSE_FAILURE,
+		return new GenericResponse(true,
 				"Oops! Something went wrong, please try again");
 	}	
 	

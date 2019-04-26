@@ -125,7 +125,7 @@ public class AesUtil {
 	    	AlgorithmParameterSpec algorithIV = new IvParameterSpec(
 	    			Base64.getDecoder().decode(iv.getBytes(StandardCharsets.UTF_8))); 
 	    	Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
-	    	cipher.init(Cipher.ENCRYPT_MODE, secretKey);
+	    	cipher.init(Cipher.ENCRYPT_MODE, secretKey, algorithIV);
 	    	
 	    	String encryptedText = new String(Base64.getEncoder().encode(cipher.doFinal(
 	        	    plainText.getBytes("UTF-8"))));
@@ -140,14 +140,14 @@ public class AesUtil {
 	    //	System.out.println(encryptedText);
 	    	
 	    	String key = "u/Gu5posvwDsXUnV5Zaq4g==";
-	    	//String iv = "5D9r9ZVzEYYgha93/aUK2w==";
+	    	String iv = "5D9r9ZVzEYYgha93/aUK2w==";
 	    	SecretKey secretKey = new SecretKeySpec(
 	    			Base64.getDecoder().decode(key.getBytes(StandardCharsets.UTF_8)), "AES");
 	    	
-//	    	AlgorithmParameterSpec algorithIV = new IvParameterSpec(
-//	    			Base64.getDecoder().decode(iv.getBytes(StandardCharsets.UTF_8))); 
+	    	AlgorithmParameterSpec algorithIV = new IvParameterSpec(
+	    			Base64.getDecoder().decode(iv.getBytes(StandardCharsets.UTF_8))); 
 	    	Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
-	    	cipher.init(Cipher.DECRYPT_MODE, secretKey);
+	    	cipher.init(Cipher.DECRYPT_MODE, secretKey, algorithIV);
 	    	byte[] original = cipher.doFinal(Base64.getDecoder().decode(encryptedText));
 	    	String plainText = new String(original);
 	    	

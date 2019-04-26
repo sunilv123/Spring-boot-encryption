@@ -17,8 +17,12 @@ import org.springframework.stereotype.Service;
 
 import com.google.gson.Gson;
 
+import net.sunil.dto.AesInfoDto;
+import net.sunil.dto.EncryptedDto;
+import net.sunil.dto.GenericResponse;
 import net.sunil.dto.LoginDto;
 import net.sunil.dto.PublickeyDto;
+import net.sunil.security.util.AesUtil;
 import net.sunil.security.util.RsaUtil;
 
 /**
@@ -31,11 +35,11 @@ public class RsaServiceImpl {
 	@Autowired
 	private Gson gson;
 	
-	public PublickeyDto getPublicKey(HttpServletRequest request) throws Exception {
+	public GenericResponse getPublicKey(HttpServletRequest request) throws Exception {
 
 		PublickeyDto dto = new PublickeyDto(
 				RsaUtil.publicKey, getRandomUuid());
-		return dto;
+		return new GenericResponse(true, dto);
 	}
 
 	private String getRandomUuid() {
@@ -57,15 +61,39 @@ public class RsaServiceImpl {
 	 * @throws NoSuchPaddingException 
 	 * @throws InvalidKeyException 
 	 */
-	public LoginDto saveLoginData(HttpServletRequest request, LoginDto dto) throws Exception {
+	public GenericResponse saveLoginData(HttpServletRequest request, EncryptedDto dto) throws Exception {
 
-	    String response =  RsaUtil.decrypt(dto.getPayLoad());
-	    
+	    String response =  AesUtil.decryptAngular(dto.getPayLoad());
 	    
 	    LoginDto responseDto =  gson.fromJson(response, LoginDto.class);
 
 	    System.out.println("response : "+responseDto.toString());
-		return responseDto;
+	    
+	    Object json  = AesUtil.encryptAngular(gson.toJson(responseDto));
+	    
+	    return  new GenericResponse(true, json);
+	}
+
+	/**
+	 * @param dto
+	 * @return
+	 * @throws NoSuchPaddingException 
+	 * @throws NoSuchAlgorithmException 
+	 * @throws BadPaddingException 
+	 * @throws IllegalBlockSizeException 
+	 * @throws InvalidKeyException 
+	 */
+	public GenericResponse saveAesKey(EncryptedDto dto) throws Exception {
+		
+		    System.out.println("aes info : "+dto.getPayLoad());
+		    String response =  RsaUtil.decrypt(dto.getPayLoad());
+		    
+		    AesInfoDto responseDto =  gson.fromJson(response, AesInfoDto.class);
+
+		    System.out.println("response : "+responseDto.toString());
+			
+		
+		return new GenericResponse(true, "Aes saved successfully");
 	}
 
 }
